@@ -49,6 +49,12 @@
             transform: scale(1.05);
             box-shadow: 0 0 25px #00ffe7;
         }
+
+        .logo {
+            width: 150px;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 0 15px #00ffe7);
+        }
     </style>
 </head>
 <body>
@@ -56,13 +62,12 @@
 <canvas id="bg"></canvas>
 
 <div class="content">
+    <img src="logo-devius.png" alt="Devius Logo" class="logo">
     <h1>Excelência em Software</h1>
     <p>De ideias brilhantes a sistemas concretos.</p>
     <p>Desenvolvimento de sistemas sob medida, inteligência e inovação.</p>
     <button class="btn">Conheça nossos serviços</button>
 </div>
-
-
 
 <script>
     const canvas = document.getElementById('bg');
@@ -89,7 +94,6 @@
         move() {
             this.x += this.vx;
             this.y += this.vy;
-
             if (this.x < 0 || this.x > w) this.vx *= -1;
             if (this.y < 0 || this.y > h) this.vy *= -1;
         }
