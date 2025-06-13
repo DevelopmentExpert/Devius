@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Líder Software Solutions</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body, html { width: 100%; height: 100%; font-family: 'Segoe UI', sans-serif; background: #0f0f0f; color: #fff; overflow: hidden; }
+
+        canvas { position: absolute; top: 0; left: 0; z-index: 0; }
+
+        .content {
+            position: absolute;
+            z-index: 1;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 3rem;
+            color: #00ffe7;
+            text-shadow: 0 0 15px #00ffe7;
+        }
+
+        p {
+            font-size: 1.3rem;
+            margin-top: 1rem;
+            color: #ccc;
+        }
+
+        .btn {
+            margin-top: 2rem;
+            padding: 12px 25px;
+            background: #00ffe7;
+            color: #0f0f0f;
+            border: none;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 1rem;
+            box-shadow: 0 0 15px #00ffe7;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 25px #00ffe7;
+        }
+    </style>
+</head>
+<body>
+
+<canvas id="bg"></canvas>
+
+<div class="content">
+    <h1>Excelência em Software</h1>
+    <p>De ideias brilhantes a sistemas concretos.</p>
+    <p>Desenvolvimento de sistemas sob medida, inteligência e inovação.</p>
+    <button class="btn">Conheça nossos serviços</button>
+</div>
+
+
+
+<script>
+    const canvas = document.getElementById('bg');
+    const ctx = canvas.getContext('2d');
+    let w, h;
+    const particles = [];
+
+    function resize() {
+        w = canvas.width = window.innerWidth;
+        h = canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resize);
+    resize();
+
+    class Particle {
+        constructor() {
+            this.x = Math.random() * w;
+            this.y = Math.random() * h;
+            this.vx = (Math.random() - 0.5) * 1.5;
+            this.vy = (Math.random() - 0.5) * 1.5;
+            this.radius = 2 + Math.random() * 2;
+        }
+
+        move() {
+            this.x += this.vx;
+            this.y += this.vy;
+
+            if (this.x < 0 || this.x > w) this.vx *= -1;
+            if (this.y < 0 || this.y > h) this.vy *= -1;
+        }
+
+        draw() {
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+            ctx.fillStyle = '#00ffe7';
+            ctx.fill();
+        }
+    }
+
+    for (let i = 0; i < 100; i++) {
+        particles.push(new Particle());
+    }
+
+    function connectParticles() {
+        for (let i = 0; i < particles.length; i++) {
+            for (let j = i + 1; j < particles.length; j++) {
+                const dx = particles[i].x - particles[j].x;
+                const dy = particles[i].y - particles[j].y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                if (distance < 150) {
+                    ctx.beginPath();
+                    ctx.strokeStyle = 'rgba(0, 255, 231, 0.2)';
+                    ctx.moveTo(particles[i].x, particles[i].y);
+                    ctx.lineTo(particles[j].x, particles[j].y);
+                    ctx.stroke();
+                }
+            }
+        }
+    }
+
+    function animate() {
+        ctx.clearRect(0, 0, w, h);
+        for (const p of particles) {
+            p.move();
+            p.draw();
+        }
+        connectParticles();
+        requestAnimationFrame(animate);
+    }
+    animate();
+</script>
+
+</body>
+</html>
