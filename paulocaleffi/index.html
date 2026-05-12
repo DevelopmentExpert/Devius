@@ -703,13 +703,55 @@
 
       h1 {
         letter-spacing: -2px;
+        font-size: 52px;
       }
 
       .hero {
         padding-top: 36px;
+        grid-template-columns: 1fr;
+      }
+
+      .hero-content {
+        text-align: center;
+      }
+
+      .hero p,
+      .hero h2 {
+        max-width: 100%;
       }
 
       .hero-visual {
+        display: grid;
+        min-height: 420px;
+        margin-top: 10px;
+      }
+
+      .orb {
+        width: 320px;
+        height: 320px;
+      }
+
+      .person-card {
+        width: 260px;
+        height: 360px;
+      }
+
+      .person-card::before {
+        inset: 48px 18px 0;
+        border-radius: 160px 160px 32px 32px;
+      }
+
+      .person-placeholder {
+        width: 220px;
+        height: 320px;
+        border-radius: 26px;
+      }
+
+      .person-placeholder img {
+        border-radius: 26px;
+      }
+
+      .float-card {
         display: none;
       }
 
@@ -725,8 +767,26 @@
         border-bottom: 1px solid rgba(255,255,255,.08);
       }
 
+      .actions {
+        justify-content: center;
+      }
+
       .actions .btn {
         width: 100%;
+      }
+
+      .cta {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .cta-icon {
+        margin: 0 auto;
+      }
+
+      .cta-list {
+        flex-wrap: wrap;
+        justify-content: center;
       }
     }
   </style>
