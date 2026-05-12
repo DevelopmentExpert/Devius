@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Paulo Caleffi | Desenvolvedor .NET</title>
+  <meta name="description" content="Paulo Caleffi - Desenvolvedor .NET especializado em sistemas empresariais, logística, ERP, mobile, dashboards e automações." />
+
+  <style>
+    :root {
+      --bg: #050816;
+      --bg-soft: #0b1024;
+      --card: #ffffff;
+      --card-dark: #0f172a;
+      --text: #e5e7eb;
+      --muted: #94a3b8;
+      --dark-text: #111827;
+      --dark-muted: #475569;
+      --primary: #00e5ff;
+      --secondary: #22c55e;
+      --accent: #7c3aed;
+      --border: rgba(255,255,255,.12);
+      --shadow: 0 25px 80px rgba(0,0,0,.35);
+      --radius: 28px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(0,229,255,.18), transparent 32%),
+        radial-gradient(circle at 80% 5%, rgba(124,58,237,.22), transparent 32%),
+        radial-gradient(circle at 65% 80%, rgba(34,197,94,.13), transparent 28%),
+        var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(1180px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .navbar {
+      position: fixed;
+      top: 18px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(1180px, calc(100% - 40px));
+      background: rgba(5, 8, 22, .78);
+      backdrop-filter: blur(18px);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 18px;
+      z-index: 100;
+      box-shadow: 0 20px 60px rgba(0,0,0,.25);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      letter-spacing: .3px;
+    }
+
+    .brand-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      display: grid;
+      place-items: center;
+      color: #001018;
+      font-weight: 900;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 22px;
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+
+    .nav-action {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: #001018;
+      padding: 11px 18px;
+      border-radius: 999px;
+      font-weight: 800;
+      font-size: 14px;
+    }
+
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 140px 0 80px;
+      position: relative;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 48px;
+      align-items: center;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      border: 1px solid rgba(0,229,255,.35);
+      background: rgba(0,229,255,.08);
+      color: #bff8ff;
+      padding: 10px 14px;
+      border-radius: 999px;
+      font-size: 14px;
+      margin-bottom: 26px;
+    }
+
+    .pulse {
+      width: 9px;
+      height: 9px;
+      background: var(--secondary);
+      border-radius: 999px;
+      box-shadow: 0 0 0 8px rgba(34,197,94,.16);
+    }
+
+    h1 {
+      font-size: clamp(42px, 7vw, 86px);
+      line-height: .98;
+      letter-spacing: -3px;
+      margin-bottom: 24px;
+    }
+
+    .gradient-text {
+      background: linear-gradient(135deg, #fff, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero p {
+      font-size: 20px;
+      line-height: 1.7;
+      color: var(--muted);
+      max-width: 690px;
+      margin-bottom: 34px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 15px 22px;
+      border-radius: 999px;
+      font-weight: 800;
+      border: 1px solid var(--border);
+      transition: .25s ease;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: #001018;
+      border: none;
+    }
+
+    .btn-secondary {
+      background: rgba(255,255,255,.07);
+      color: #fff;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 18px 40px rgba(0,229,255,.15);
+    }
+
+    .hero-card {
+      position: relative;
+      border: 1px solid var(--border);
+      background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.04));
+      border-radius: var(--radius);
+      padding: 22px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .hero-card::before {
+      content: "";
+      position: absolute;
+      inset: -2px;
+      background: radial-gradient(circle at 20% 10%, rgba(0,229,255,.25), transparent 30%);
+      pointer-events: none;
+    }
+
+    .profile-box {
+      min-height: 480px;
+      border-radius: 24px;
+      background:
+        linear-gradient(135deg, rgba(0,229,255,.12), rgba(34,197,94,.10)),
+        #0a1024;
+      border: 1px solid rgba(255,255,255,.1);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 26px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .profile-box::after {
+      content: "</>";
+      position: absolute;
+      right: -20px;
+      bottom: -30px;
+      font-size: 140px;
+      font-weight: 900;
+      color: rgba(255,255,255,.05);
+    }
+
+    .photo-placeholder {
+      height: 270px;
+      border-radius: 22px;
+      border: 1px dashed rgba(255,255,255,.22);
+      background:
+        linear-gradient(135deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      display: grid;
+      place-items: center;
+      text-align: center;
+      color: var(--muted);
+      padding: 20px;
+      margin-bottom: 22px;
+    }
+
+    .status-list {
+      display: grid;
+      gap: 12px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .status-item {
+      background: rgba(255,255,255,.07);
+      border: 1px solid rgba(255,255,255,.10);
+      padding: 14px;
+      border-radius: 18px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      color: var(--muted);
+    }
+
+    .status-item strong {
+      color: #fff;
+    }
+
+    section {
+      padding: 90px 0;
+    }
+
+    .section-head {
+      text-align: center;
+      margin-bottom: 46px;
+    }
+
+    .section-kicker {
+      color: var(--primary);
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: 13px;
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-size: clamp(32px, 5vw, 54px);
+      line-height: 1.05;
+      letter-spacing: -2px;
+      margin-bottom: 18px;
+    }
+
+    .section-desc {
+      color: var(--muted);
+      font-size: 18px;
+      line-height: 1.7;
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    .white-section {
+      background: #f8fafc;
+      color: var(--dark-text);
+      border-radius: 48px 48px 0 0;
+      margin-top: 30px;
+    }
+
+    .white-section .section-desc,
+    .white-section .muted {
+      color: var(--dark-muted);
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+
+    .card {
+      background: rgba(255,255,255,.07);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 26px;
+      box-shadow: 0 20px 60px rgba(0,0,0,.18);
+      transition: .25s ease;
+    }
+
+    .white-section .card {
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 18px 45px rgba(15,23,42,.08);
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+    }
+
+    .icon {
+      width: 54px;
+      height: 54px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: #001018;
+      display: grid;
+      place-items: center;
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    .card h3 {
+      font-size: 22px;
+      margin-bottom: 12px;
+    }
+
+    .card p {
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .white-section .card p {
+      color: var(--dark-muted);
+    }
+
+    .tech-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .tech {
+      padding: 18px;
+      border-radius: 20px;
+      background: rgba(255,255,255,.07);
+      border: 1px solid var(--border);
+      text-align: center;
+      font-weight: 800;
+      color: #dbeafe;
+    }
+
+    .projects {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 26px;
+    }
+
+    .project {
+      background: #fff;
+      color: var(--dark-text);
+      border-radius: 30px;
+      overflow: hidden;
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 25px 70px rgba(15,23,42,.10);
+    }
+
+    .project-img {
+      height: 240px;
+      background:
+        linear-gradient(135deg, rgba(0,229,255,.18), rgba(124,58,237,.16)),
+        #0f172a;
+      display: grid;
+      place-items: center;
+      color: #cbd5e1;
+      text-align: center;
+      padding: 25px;
+      font-weight: 800;
+    }
+
+    .project-content {
+      padding: 26px;
+    }
+
+    .project-content h3 {
+      font-size: 24px;
+      margin-bottom: 12px;
+    }
+
+    .project-content p {
+      color: var(--dark-muted);
+      line-height: 1.7;
+      margin-bottom: 18px;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tag {
+      background: #e0f2fe;
+      color: #075985;
+      font-size: 12px;
+      font-weight: 800;
+      padding: 8px 10px;
+      border-radius: 999px;
+    }
+
+    .process {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+      counter-reset: step;
+    }
+
+    .step {
+      position: relative;
+      background: rgba(255,255,255,.07);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 24px;
+    }
+
+    .step::before {
+      counter-increment: step;
+      content: "0" counter(step);
+      display: inline-grid;
+      place-items: center;
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: #001018;
+      font-weight: 900;
+      margin-bottom: 18px;
+    }
+
+    .step h3 {
+      margin-bottom: 10px;
+    }
+
+    .step p {
+      color: var(--muted);
+      line-height: 1.6;
+      font-size: 15px;
+    }
+
+    .cta {
+      text-align: center;
+      background:
+        radial-gradient(circle at 30% 20%, rgba(0,229,255,.24), transparent 35%),
+        linear-gradient(135deg, #0f172a, #020617);
+      border: 1px solid var(--border);
+      border-radius: 42px;
+      padding: 70px 30px;
+      box-shadow: var(--shadow);
+    }
+
+    .cta h2 {
+      font-size: clamp(34px, 5vw, 60px);
+      letter-spacing: -2px;
+      margin-bottom: 20px;
+    }
+
+    .cta p {
+      color: var(--muted);
+      font-size: 19px;
+      line-height: 1.7;
+      max-width: 780px;
+      margin: 0 auto 30px;
+    }
+
+    footer {
+      padding: 34px 0;
+      color: var(--muted);
+      text-align: center;
+      border-top: 1px solid var(--border);
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: .7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 900px) {
+      .hero-grid,
+      .cards,
+      .projects,
+      .process {
+        grid-template-columns: 1fr;
+      }
+
+      .tech-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .navbar {
+        top: 10px;
+        border-radius: 24px;
+      }
+
+      .hero {
+        padding-top: 120px;
+      }
+
+      h1 {
+        letter-spacing: -1.5px;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .container {
+        width: min(100% - 24px, 1180px);
+      }
+
+      .nav-action {
+        display: none;
+      }
+
+      .tech-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-buttons .btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="navbar">
+    <a href="#inicio" class="brand">
+      <span class="brand-icon">PC</span>
+      <span>Paulo Caleffi</span>
+    </a>
+
+    <nav class="nav-links">
+      <a href="#sobre">Sobre</a>
+      <a href="#solucoes">Soluções</a>
+      <a href="#projetos">Projetos</a>
+      <a href="#contato">Contato</a>
+    </nav>
+
+    <a class="nav-action" href="https://wa.me/5514981534773" target="_blank">Falar comigo</a>
+  </header>
+
+  <main>
+    <section class="hero" id="inicio">
+      <div class="container hero-grid">
+        <div class="reveal">
+          <div class="badge">
+            <span class="pulse"></span>
+            Desenvolvedor .NET • Sistemas Empresariais • Soluções Reais
+          </div>
+
+          <h1>
+            Tecnologia intensa.<br>
+            Solução leve.<br>
+            <span class="gradient-text">Resultado real.</span>
+          </h1>
+
+          <p>
+            Eu sou Paulo Caleffi, desenvolvedor focado em transformar problemas operacionais
+            em sistemas inteligentes, rápidos e práticos. Crio soluções para empresas que
+            precisam de tecnologia funcionando de verdade.
+          </p>
+
+          <div class="hero-buttons">
+            <a class="btn btn-primary" href="https://wa.me/5514981534773" target="_blank">💬 Chamar no WhatsApp</a>
+            <a class="btn btn-secondary" href="#projetos">Ver meus projetos</a>
+          </div>
+        </div>
+
+        <div class="hero-card reveal">
+          <div class="profile-box">
+            <div class="photo-placeholder">
+              <div>
+                <strong>Espaço para sua foto profissional</strong><br><br>
+                Coloque aqui uma imagem sua ou uma arte tecnológica com servidores, código ou dashboards.
+              </div>
+            </div>
+
+            <div class="status-list">
+              <div class="status-item">
+                <span>Foco</span>
+                <strong>Resolver problemas</strong>
+              </div>
+              <div class="status-item">
+                <span>Stack</span>
+                <strong>C# • .NET • Blazor • MAUI</strong>
+              </div>
+              <div class="status-item">
+                <span>Entrega</span>
+                <strong>Web • Mobile • Desktop • API</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="sobre">
+      <div class="container">
+        <div class="section-head reveal">
+          <div class="section-kicker">Quem sou eu</div>
+          <h2 class="section-title">Mais que código, eu construo solução.</h2>
+          <p class="section-desc">
+            Trabalho com desenvolvimento de sistemas empresariais usando tecnologia para organizar processos,
+            reduzir retrabalho, automatizar tarefas e dar mais controle para gestores e equipes.
+          </p>
+        </div>
+
+        <div class="cards">
+          <div class="card reveal">
+            <div class="icon">⚙️</div>
+            <h3>Sistemas sob medida</h3>
+            <p>Criação de sistemas pensados para a rotina real da empresa, sem complicar o que precisa ser simples.</p>
+          </div>
+
+          <div class="card reveal">
+            <div class="icon">🚀</div>
+            <h3>Performance e praticidade</h3>
+            <p>Interfaces leves, consultas otimizadas, processos claros e telas que ajudam o usuário a produzir mais.</p>
+          </div>
+
+          <div class="card reveal">
+            <div class="icon">🤝</div>
+            <h3>Atendimento prestativo</h3>
+            <p>Meu foco é entender o problema, orientar com clareza e entregar uma solução que realmente funcione.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="solucoes" class="white-section">
+      <div class="container">
+        <div class="section-head reveal">
+          <div class="section-kicker">O que eu resolvo</div>
+          <h2 class="section-title">Tecnologia para operação, gestão e crescimento.</h2>
+          <p class="section-desc">
+            Desenvolvo aplicações completas para web, desktop e mobile, conectadas a bancos de dados, APIs,
+            dashboards, automações e fluxos internos.
+          </p>
+        </div>
+
+        <div class="cards">
+          <div class="card reveal">
+            <div class="icon">📦</div>
+            <h3>Logística e entregas</h3>
+            <p>Controle de romaneios, rotas, entregas, montagem, fotos, assinaturas, status e acompanhamento operacional.</p>
+          </div>
+
+          <div class="card reveal">
+            <div class="icon">📊</div>
+            <h3>Dashboards gerenciais</h3>
+            <p>Painéis para acompanhar produtividade, tempo, desempenho, ranking de equipes e indicadores importantes.</p>
+          </div>
+
+          <div class="card reveal">
+            <div class="icon">🧠</div>
+            <h3>Automação inteligente</h3>
+            <p>Automação de processos, integração com banco de dados, APIs, relatórios, notificações e fluxos internos.</p>
+          </div>
+
+          <div class="card reveal">
+            <div class="icon">📱</div>
+            <h3>Aplicativos mobile</h3>
+            <p>Apps em .NET MAUI para equipes externas, com fotos, geolocalização, modo offline e sincronização.</p>
+          </div>
+
+          <div class="card reveal">
+            <div class="icon">💻</div>
+            <h3>Sistemas web</h3>
+            <p>Soluções em Blazor, ASP.NET e HTML para cadastros, documentos, financeiro, chamados e gestão empresarial.</p>
+          </div>
+
+          <div class="card reveal">
+            <div class="icon">🔌</div>
+            <h3>APIs e integrações</h3>
+            <p>Criação de APIs REST, integração entre sistemas, bancos PostgreSQL, MySQL e serviços externos.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="tecnologias">
+      <div class="container">
+        <div class="section-head reveal">
+          <div class="section-kicker">Tecnologias</div>
+          <h2 class="section-title">Ferramentas que uso para entregar resultado.</h2>
+        </div>
+
+        <div class="tech-grid reveal">
+          <div class="tech">C#</div>
+          <div class="tech">.NET</div>
+          <div class="tech">ASP.NET Core</div>
+          <div class="tech">Blazor</div>
+          <div class="tech">.NET MAUI</div>
+          <div class="tech">WPF</div>
+          <div class="tech">PostgreSQL</div>
+          <div class="tech">MySQL</div>
+          <div class="tech">APIs REST</div>
+          <div class="tech">Entity Framework</div>
+          <div class="tech">HTML/CSS/JS</div>
+          <div class="tech">GitHub</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="projetos" class="white-section">
+      <div class="container">
+        <div class="section-head reveal">
+          <div class="section-kicker">Projetos reais</div>
+          <h2 class="section-title">Sistemas criados para resolver problemas de verdade.</h2>
+          <p class="section-desc">
+            Aqui entram os principais projetos desenvolvidos. Depois você pode trocar os espaços por prints reais das telas.
+          </p>
+        </div>
+
+        <div class="projects">
+          <article class="project reveal">
+            <div class="project-img">Espaço para print do Sistema de Montagem</div>
+            <div class="project-content">
+              <h3>Sistema de Montagem</h3>
+              <p>Aplicativo para controle de montagem com cronômetro, fotos, assinatura, observações, assistência e integração com API.</p>
+              <div class="tags">
+                <span class="tag">.NET MAUI</span>
+                <span class="tag">API</span>
+                <span class="tag">PostgreSQL</span>
+                <span class="tag">Mobile</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="project reveal">
+            <div class="project-img">Espaço para print do Sistema de Entregas</div>
+            <div class="project-content">
+              <h3>Controle de Entregas</h3>
+              <p>Sistema para acompanhar rotas, clientes, telefones, períodos, status, carregamento e confirmação de entregas.</p>
+              <div class="tags">
+                <span class="tag">C#</span>
+                <span class="tag">Logística</span>
+                <span class="tag">API REST</span>
+                <span class="tag">Mobile</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="project reveal">
+            <div class="project-img">Espaço para print do Dashboard WPF</div>
+            <div class="project-content">
+              <h3>Dashboard Gerencial</h3>
+              <p>Painéis para análise de produtividade, ranking de montadores, tempo previsto, tempo realizado e indicadores operacionais.</p>
+              <div class="tags">
+                <span class="tag">WPF</span>
+                <span class="tag">SQL</span>
+                <span class="tag">Dashboard</span>
+                <span class="tag">Gestão</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="project reveal">
+            <div class="project-img">Espaço para print do ERP/RH</div>
+            <div class="project-content">
+              <h3>ERP e Gestão de RH</h3>
+              <p>Controle de funcionários, documentos, contratos, segurança do trabalho, integrações, chamados e anexos.</p>
+              <div class="tags">
+                <span class="tag">Blazor</span>
+                <span class="tag">MySQL</span>
+                <span class="tag">ASP.NET</span>
+                <span class="tag">ERP</span>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="processo">
+      <div class="container">
+        <div class="section-head reveal">
+          <div class="section-kicker">Como eu trabalho</div>
+          <h2 class="section-title">Clareza, foco e solução sem enrolação.</h2>
+        </div>
+
+        <div class="process">
+          <div class="step reveal">
+            <h3>Entendo o problema</h3>
+            <p>Antes de programar, eu entendo a dor, a rotina e o que precisa melhorar.</p>
+          </div>
+
+          <div class="step reveal">
+            <h3>Desenho a solução</h3>
+            <p>Organizo telas, fluxo, banco de dados, API e regras de negócio.</p>
+          </div>
+
+          <div class="step reveal">
+            <h3>Desenvolvo com foco</h3>
+            <p>Crio o sistema com qualidade, performance e pensando no usuário final.</p>
+          </div>
+
+          <div class="step reveal">
+            <h3>Melhoro continuamente</h3>
+            <p>Ajusto, evoluo e deixo a tecnologia cada vez mais útil para a empresa.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contato">
+      <div class="container">
+        <div class="cta reveal">
+          <h2>Tem um problema para resolver?</h2>
+          <p>
+            Vamos transformar sua ideia, dificuldade ou processo manual em uma solução tecnológica simples,
+            profissional e eficiente.
+          </p>
+
+          <div class="hero-buttons" style="justify-content:center;">
+            <a class="btn btn-primary" href="https://wa.me/5514981534773" target="_blank">💬 Falar pelo WhatsApp</a>
+            <a class="btn btn-secondary" href="mailto:gerenteti@marciusmagazine.com.br">Enviar e-mail</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      © <span id="year"></span> Paulo Caleffi. Desenvolvido com foco, tecnologia e propósito.
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
