@@ -185,12 +185,36 @@
       max-width: 650px;
       margin-bottom: 34px;
     }
+      .actions {
+          display: flex;
+          gap: 18px;
+          flex-wrap: wrap;
+          margin-top: 12px;
+      }
 
-    .actions {
-      display: flex;
-      gap: 18px;
-      flex-wrap: wrap;
-    }
+          .actions .btn {
+              min-width: 185px;
+              justify-content: center;
+              font-size: 15px;
+              letter-spacing: .3px;
+              transition: .25s ease;
+          }
+
+              .actions .btn:hover {
+                  transform: translateY(-4px);
+                  box-shadow: 0 10px 25px rgba(0,132,255,.22);
+              }
+
+          .actions .btn-outline {
+              border: 1px solid rgba(255,255,255,.12);
+              background: rgba(255,255,255,.04);
+              backdrop-filter: blur(10px);
+          }
+
+              .actions .btn-outline:hover {
+                  border-color: var(--blue2);
+                  background: rgba(0,132,255,.12);
+              }
 
     .btn {
       min-height: 54px;
@@ -743,10 +767,30 @@
           Desenvolvo sistemas completos que organizam processos, aumentam a produtividade
           e trazem resultados reais para empresas de diferentes segmentos.
         </p>
-
         <div class="actions">
-          <a class="btn btn-primary" href="#projetos">🚀 Ver Projetos</a>
-          <a class="btn btn-outline" href="https://wa.me/5514981534773" target="_blank">🟢 Falar no WhatsApp</a>
+
+            <a class="btn btn-primary" href="#projetos">
+                🚀 Ver Projetos
+            </a>
+
+            <a class="btn btn-outline"
+               href="https://wa.me/5514981534773"
+               target="_blank">
+                🟢 WhatsApp
+            </a>
+
+            <a class="btn btn-outline"
+               href="https://linkedin.com/in/PauloCaleffi"
+               target="_blank">
+                💼 LinkedIn
+            </a>
+
+            <a class="btn btn-outline"
+               href="https://github.com/PauloCaleffi"
+               target="_blank">
+                ⚡ GitHub
+            </a>
+
         </div>
       </div>
 
